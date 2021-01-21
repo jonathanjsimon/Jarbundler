@@ -131,7 +131,7 @@ public class AppBundleProperties {
 	/**
 	 * LSEnvironment (Dictionary - OS X) defines environment variables to be set before launching this app. The names of the environment variables are the keys of the dictionary, with the values being the corresponding environment variable value. Both keys and values must be strings.
 	 * These environment variables are set only for apps launched through Launch Services. If you run your executable directly from the command line, these environment variables are not set.
-	 * 
+	 *
 	 * @author Tobias Bley
 	 * @since 3.2.0
 	 */
@@ -142,10 +142,10 @@ public class AppBundleProperties {
 
 	/**
 	 * Add a LSEnvironment key-value pair to the mLSEnvironments hashtable.
-	 * 
+	 *
 	 * @author Tobias Bley
 	 * @since 3.2.0
-	 * 
+	 *
 	 * @param key A Key
 	 * @param value A Value
 	 */
@@ -155,10 +155,10 @@ public class AppBundleProperties {
 
 
 	/**
-	 * 
+	 *
 	 * @author Tobias Bley
 	 * @since 3.2.0
-	 * 
+	 *
 	 * @return LSEnvironment
 	 */
 	public Hashtable getLSEnvironment() {
@@ -167,7 +167,7 @@ public class AppBundleProperties {
 
 	/**
 	 * Add a Java runtime property to the properties hashtable.
-	 * 
+	 *
 	 * @param prop A property
 	 * @param val A value
 	 */
@@ -214,7 +214,7 @@ public class AppBundleProperties {
 
 	/**
 	 * Add a document type to the document type list.
-	 * 
+	 *
 	 * @param documentType A document type
 	 */
 	public void addDocumentType(DocumentType documentType) {
@@ -231,7 +231,7 @@ public class AppBundleProperties {
 
 	/**
 	 * Add a service to the services list.
-	 * 
+	 *
 	 * @param service Service
 	 */
 	public void addService(Service service) {
@@ -436,9 +436,24 @@ public class AppBundleProperties {
 		return mMainClass;
 	}
 
-	public void setJVMVersion(String s) {
-		mJVMVersion = s;
-		mJavaVersion = Double.parseDouble(s.substring(0, 3));
+    public void setJVMVersion(String s) {
+        mJVMVersion = s;
+        try
+        {
+
+            int endIndex = s.length()-1;
+            if (s.endsWith("+"))
+            {
+                endIndex--;
+            }
+
+            mJavaVersion = Double.parseDouble(s.substring(0, endIndex));
+        }
+        catch (Exception e)
+        {
+            throw e;
+            // System.err.println("ABP:SJVMV:UHE:" + e.getStackTrace());
+        }
 	}
 
 	public String getJVMVersion() {
